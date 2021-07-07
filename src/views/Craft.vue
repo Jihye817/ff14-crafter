@@ -1,25 +1,48 @@
 <template>
   <v-container fluid class="grey lighten-3">
-    <v-row>
-      <v-col v-for="n in 8" :key="n">
-        <v-btn>
-          <v-row>
-            <v-img
-              :src="require('../assets/logo.svg')"
-              class="ma-0 pa-0"
-              contain
-              height="30"
-              width="30"
-            />test
+    <v-row class="ma-0">
+      <!-- <v-col align="center" v-for="n in 8" :key="n"> -->
+      <v-col align="center" v-for="(item, i) in craftJobList" :key="i">
+        <v-btn @click="changePage(item.text)" depressed color="primary" width="80%">
+          <v-row align="center" justify="space-around">
+            <v-icon>${{item.icon}}</v-icon>
+            {{item.text}}
           </v-row>
         </v-btn>
       </v-col>
     </v-row>
+      <component :is="Pages"></component>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "Craft"
+  name: "Craft",
+  components: {
+    'About': () => import('../views/About'),
+  },
+  data: () => ({
+    craftJobList: [
+      { text: "About", icon: "icon" },
+      { text: "two", icon: "icon" },
+      { text: "three", icon: "icon" },
+      { text: "four", icon: "icon" },
+      { text: "five", icon: "icon" },
+      { text: "six", icon: "icon" },
+      { text: "seven", icon: "icon" },
+      { text: "eight", icon: "icon" }
+    ],
+    activePage: ''
+  }),
+  methods: {
+    changePage(pagename) {
+      
+    }
+  },
+  computed: {
+    Pages() {
+      return this.activePage;
+    }
+  },
 };
 </script>
