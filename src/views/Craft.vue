@@ -1,7 +1,6 @@
 <template>
-  <v-container fluid class="grey lighten-3">
-    <v-row class="ma-0">
-      <!-- <v-col align="center" v-for="n in 8" :key="n"> -->
+  <v-container fluid class="grey ma-0 pa-0">
+    <v-row class="ma-0 pa-0">
       <v-col align="center" v-for="(item, i) in craftJobList" :key="i">
         <v-btn @click="changePage(item.text)" depressed color="primary" width="80%">
           <v-row align="center" justify="space-around">
@@ -11,7 +10,9 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-row>
       <component :is="Pages"></component>
+    </v-row>
   </v-container>
 </template>
 
@@ -32,11 +33,11 @@ export default {
       { text: "seven", icon: "icon" },
       { text: "eight", icon: "icon" }
     ],
-    activePage: ''
+    activePage: '',
   }),
   methods: {
     changePage(pagename) {
-      
+      this.activePage = pagename;
     }
   },
   computed: {

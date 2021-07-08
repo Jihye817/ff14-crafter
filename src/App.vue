@@ -4,6 +4,8 @@
     <v-app-bar app clipped-left elevation="0">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Crafter</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-switch v-model="$vuetify.theme.dark" inset hide-details></v-switch>
     </v-app-bar>
 
     <v-main>
