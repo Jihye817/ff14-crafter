@@ -11,7 +11,12 @@
     <v-main>
       <v-navigation-drawer app v-model="drawer" clipped>
         <v-list-item-group>
-          <v-list-item class="ma-0" v-for="(item, i) in items" :key="i">
+          <v-list-item
+            @click="movePage(item.text)"
+            class="ma-0"
+            v-for="(item, i) in items"
+            :key="i"
+          >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -42,7 +47,10 @@ export default {
 
   data: () => ({
     drawer: null,
-    items: [{ text: "Craft", icon: "mdi-dog", func: "" }]
+    items: [
+      { text: "Craft", icon: "mdi-dog" },
+      { text: "About", icon: "mdi-information" }
+    ]
   }),
   methods: {
     movePage(text) {

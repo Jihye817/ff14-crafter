@@ -20,11 +20,11 @@
 export default {
   name: "Craft",
   components: {
-    'About': () => import('../views/About'),
+    'First': () => import('../views/Alchemist'),
   },
   data: () => ({
     craftJobList: [
-      { text: "About", icon: "icon" },
+      { text: "First", icon: "icon" },
       { text: "two", icon: "icon" },
       { text: "three", icon: "icon" },
       { text: "four", icon: "icon" },
