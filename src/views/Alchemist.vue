@@ -24,11 +24,11 @@
               </template>
               <p class="mb-0">
                 <b data-html="true">
-                  tooltip
-                  <br />tooltiptooltiptooltip
+                  {{item.text}}
+                  <br />
                 </b>
               </p>
-              <p class="mb-0">tooltip2</p>
+              <p class="mb-0">{{item.tooltip}}</p>
             </v-tooltip>
           </v-col>
         </v-row>
@@ -81,7 +81,7 @@
             </draggable>
           </v-col>
           <v-col cols="2" align-self="center">
-            <v-btn depressed color="white" @click="changeToText()">test</v-btn>
+            <v-btn @click="changeToText()">test</v-btn>
           </v-col>
           <v-col cols="5">
             <div v-for="elem in selectedText" :key="elem.name">test {{elem.name}}</div>
@@ -103,9 +103,9 @@ export default {
   },
   data: () => ({
     craftSkillList: [
-      { text: "1", icon: "icon" },
-      { text: "2", icon: "icon" },
-      { text: "3", icon: "icon" }
+      { text: "1", icon: "icon", tooltip: "tooltip1" },
+      { text: "2", icon: "icon", tooltip: "tooltip2" },
+      { text: "3", icon: "icon", tooltip: "tooltip3" }
     ],
     selectedList: [],
     selectedText: [],
@@ -132,10 +132,28 @@ export default {
       this.selectedList.splice(this.selectedList.indexOf(text), 1);
     },
     copyToClipboard() {
-      var copyText = this.craftSkillList[0].text;
-      alert(copyText);
-      document.execCommand("copy");
-      // alert(copyText.value + "을 복사했습니다.");
+      var copyText = [];
+      var i;
+      for (i = 0; i < this.selectedText.length; i++) {
+        copyText.push(this.selectedText[i].name + " time");
+      }
+      //복사 위해 textarea 생성
+      const element = document.createElement("textarea");
+      element.value = copyText.join("\n");
+      element.setAttribute("readonly", "");
+      element.style.position = "absolute";
+      element.style.left = "-9999px"; //화면 깜빡임 방지를 위해 시야 밖에 생성
+      document.body.appendChild(element);
+      element.select();
+
+      var returnValue = document.execCommand("copy"); //복사
+      document.body.removeChild(element); //완료 후 생성된 element 삭제
+
+      if (!returnValue) {
+        throw new Error("copied nothing");
+      } else {
+        alert("복사 완료");
+      }
     }
   }
 };
