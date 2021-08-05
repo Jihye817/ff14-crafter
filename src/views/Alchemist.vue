@@ -7,7 +7,14 @@
           <v-col v-for="(item, i) in craftSkillList" :key="i">
             <v-tooltip right min-width="100">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn
+                <button
+                  class="button"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="addToList(item.text, item.icon)"
+                  :style="{ 'backgroundImage': 'url(' + item.images + ')' }"
+                ><img :src="item.images" style="height:50px"></button>
+                <!-- <v-btn
                   depressed
                   color="white"
                   width="50"
@@ -20,7 +27,7 @@
                   <v-row align="center" justify="space-around">
                     <v-img src="../assets/logo.png" width="50" height="50" contain></v-img>
                   </v-row>
-                </v-btn>
+                </v-btn>-->
               </template>
               <p class="mb-0">
                 <b data-html="true">
@@ -51,7 +58,9 @@
                 :key="element.name"
                 style="padding: 10px"
               >
-                <v-btn
+                <button class="button"></button>
+
+                <!-- <v-btn
                   depressed
                   color="white"
                   width="50"
@@ -63,7 +72,7 @@
                   <v-row align="center" justify="space-around">
                     <v-img src="../assets/logo.png" width="50" height="50" contain></v-img>
                   </v-row>
-                </v-btn>
+                </v-btn>-->
                 <v-btn
                   class="pa-0"
                   depressed
@@ -103,9 +112,24 @@ export default {
   },
   data: () => ({
     craftSkillList: [
-      { text: "1", icon: "icon", tooltip: "tooltip1" },
-      { text: "2", icon: "icon", tooltip: "tooltip2" },
-      { text: "3", icon: "icon", tooltip: "tooltip3" }
+      {
+        text: "1",
+        icon: "icon",
+        tooltip: "tooltip1",
+        images: "../assets/logo.png"
+      },
+      {
+        text: "2",
+        icon: "icon",
+        tooltip: "tooltip2",
+        images: "../assets/alchemist.png"
+      },
+      {
+        text: "3",
+        icon: "icon",
+        tooltip: "tooltip3",
+        images: "../assets/armorer.png"
+      }
     ],
     selectedList: [],
     selectedText: [],
@@ -165,5 +189,11 @@ export default {
 .ghost {
   opacity: 0.5;
   background: #c8ebfb;
+}
+.button {
+  height: 50px;
+  width: 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
