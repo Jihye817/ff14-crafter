@@ -4,7 +4,7 @@
       <v-col align="center" v-for="(item, i) in craftJobList" :key="i">
         <v-btn @click="changePage(item.text)" depressed color="primary" width="80%">
           <v-row align="center" justify="space-around">
-            <v-icon>${{item.icon}}</v-icon>
+            <img :src="item.image" class="btn" />
             {{item.text}}
           </v-row>
         </v-btn>
@@ -17,23 +17,16 @@
 </template>
 
 <script>
+import shared from "../variables/global";
+
 export default {
   name: "Craft",
   components: {
-    'First': () => import('../views/Alchemist'),
+    First: () => import("../views/Alchemist")
   },
   data: () => ({
-    craftJobList: [
-      { text: "First", icon: "icon" },
-      { text: "two", icon: "icon" },
-      { text: "three", icon: "icon" },
-      { text: "four", icon: "icon" },
-      { text: "five", icon: "icon" },
-      { text: "six", icon: "icon" },
-      { text: "seven", icon: "icon" },
-      { text: "eight", icon: "icon" }
-    ],
-    activePage: '',
+    craftJobList: shared.craftJobList,
+    activePage: ""
   }),
   methods: {
     changePage(pagename) {
@@ -44,6 +37,14 @@ export default {
     Pages() {
       return this.activePage;
     }
-  },
+  }
 };
 </script>
+
+<style scoped>
+.btn {
+  height: 15px;
+  width: 15px;
+  background-size: cover;
+}
+</style>

@@ -11,23 +11,10 @@
                   class="button"
                   v-bind="attrs"
                   v-on="on"
-                  @click="addToList(item.text, item.icon)"
-                  :style="{ 'backgroundImage': 'url(' + item.images + ')' }"
-                ><img :src="item.images" style="height:50px"></button>
-                <!-- <v-btn
-                  depressed
-                  color="white"
-                  width="50"
-                  height="50"
-                  min-width="50"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="addToList(item.text, item.icon)"
+                  @click="addToList(item.text, item.icon, item.images)"
                 >
-                  <v-row align="center" justify="space-around">
-                    <v-img src="../assets/logo.png" width="50" height="50" contain></v-img>
-                  </v-row>
-                </v-btn>-->
+                  <img :src="item.images" style="height:50px" />
+                </button>
               </template>
               <p class="mb-0">
                 <b data-html="true">
@@ -58,21 +45,9 @@
                 :key="element.name"
                 style="padding: 10px"
               >
-                <button class="button"></button>
-
-                <!-- <v-btn
-                  depressed
-                  color="white"
-                  width="50"
-                  height="50"
-                  min-width="50"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-row align="center" justify="space-around">
-                    <v-img src="../assets/logo.png" width="50" height="50" contain></v-img>
-                  </v-row>
-                </v-btn>-->
+                <button class="button">
+                  <img :src="element.images" style="height:50px" />
+                </button>
                 <v-btn
                   class="pa-0"
                   depressed
@@ -104,6 +79,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import shared from "../variables/global";
 
 export default {
   name: "Alchemist",
@@ -111,26 +87,7 @@ export default {
     draggable
   },
   data: () => ({
-    craftSkillList: [
-      {
-        text: "1",
-        icon: "icon",
-        tooltip: "tooltip1",
-        images: "../assets/logo.png"
-      },
-      {
-        text: "2",
-        icon: "icon",
-        tooltip: "tooltip2",
-        images: "../assets/alchemist.png"
-      },
-      {
-        text: "3",
-        icon: "icon",
-        tooltip: "tooltip3",
-        images: "../assets/armorer.png"
-      }
-    ],
+    craftSkillList: shared.craftSkillList,
     selectedList: [],
     selectedText: [],
     enabled: true,
@@ -142,8 +99,9 @@ export default {
     }
   },
   methods: {
-    addToList(name, id) {
-      this.selectedList.push({ name, id });
+    addToList(name, id, images) {
+      this.selectedList.push({ name, id, images });
+      console.log(images);
     },
     checkMove: function(e) {
       window.console.log("Future index: " + e.draggedContext.futureIndex);
