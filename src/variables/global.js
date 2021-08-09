@@ -7,32 +7,35 @@ const list = [
     testList: [{ num: 1 }, { num: 2 }],
     testList2: list,
     craftJobList: [
-      { text: "First", icon: "icon", image: require("../assets/logo.png") },
-      { text: "two", icon: "icon", image: require("../assets/logo.png") },
-      { text: "three", icon: "icon", image: require("../assets/logo.png") },
-      { text: "four", icon: "icon", image: require("../assets/logo.png") },
-      { text: "five", icon: "icon", image: require("../assets/logo.png") },
-      { text: "six", icon: "icon", image: require("../assets/logo.png") },
-      { text: "seven", icon: "icon", image: require("../assets/logo.png") },
-      { text: "eight", icon: "icon", image: require("../assets/logo.png") }
+      { text: "first", icon: "icon", image: require("../assets/carpenter.png") },
+      { text: "two", icon: "icon", image: require("../assets/blacksmith.png") },
+      { text: "three", icon: "icon", image: require("../assets/armorer.png") },
+      { text: "four", icon: "icon", image: require("../assets/goldsmith.png") },
+      { text: "five", icon: "icon", image: require("../assets/leatherworker.png") },
+      { text: "six", icon: "icon", image: require("../assets/weaver.png") },
+      { text: "seven", icon: "icon", image: require("../assets/alchemist.png") },
+      { text: "eight", icon: "icon", image: require("../assets/culinarian.png") }
     ],
     craftSkillList: [
       {
         text: "1",
         icon: "icon",
         tooltip: "tooltip1",
+        cp: 0,
         images: require("../assets/logo.png")
       },
       {
         text: "2",
         icon: "icon",
         tooltip: "tooltip2",
+        cp: 0,
         images: require("../assets/logo.png")
       },
       {
         text: "3",
         icon: "icon",
         tooltip: "tooltip3",
+        cp: 0,
         images: require("../assets/logo.png")
       }
     ],

@@ -11,7 +11,7 @@
                   class="button"
                   v-bind="attrs"
                   v-on="on"
-                  @click="addToList(item.text, item.icon, item.images)"
+                  @click="addToList(item.text, item.icon, item.images, item.cp)"
                 >
                   <img :src="item.images" style="height:50px" />
                 </button>
@@ -69,6 +69,7 @@
           </v-col>
           <v-col cols="5">
             <div v-for="elem in selectedText" :key="elem.name">test {{elem.name}}</div>
+            <div>cp : {{totalCP}}</div>
             <v-btn @click="copyToClipboard()">copy</v-btn>
           </v-col>
         </v-row>
@@ -80,6 +81,7 @@
 <script>
 import draggable from "vuedraggable";
 import shared from "../variables/global";
+import alchemist from "../variables/alchemist";
 
 export default {
   name: "Alchemist",
@@ -87,11 +89,12 @@ export default {
     draggable
   },
   data: () => ({
-    craftSkillList: shared.craftSkillList,
+    craftSkillList: alchemist.craftSkillList,
     selectedList: [],
     selectedText: [],
     enabled: true,
-    dragging: false
+    dragging: false,
+    totalCP : 0,
   }),
   computed: {
     draggingInfo() {
@@ -99,8 +102,9 @@ export default {
     }
   },
   methods: {
-    addToList(name, id, images) {
-      this.selectedList.push({ name, id, images });
+    addToList(name, id, images, cp) {
+      this.selectedList.push({ name, id, images, cp});
+      this.totalCP += cp
       console.log(images);
     },
     checkMove: function(e) {
@@ -111,6 +115,7 @@ export default {
     },
     remove(text) {
       console.log(this.selectedList.indexOf(text));
+      this.totalCP -= this.selectedList.indexOf(text).cp;
       this.selectedList.splice(this.selectedList.indexOf(text), 1);
     },
     copyToClipboard() {
