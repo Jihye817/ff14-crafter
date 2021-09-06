@@ -11,14 +11,14 @@
                   class="button"
                   v-bind="attrs"
                   v-on="on"
-                  @click="addToList(item.text, item.icon, item.images, item.cp)"
+                  @click="addToList(item.name, item.icon, item.images, item.cp)"
                 >
                   <img :src="item.images" style="height:50px" />
                 </button>
               </template>
               <p class="mb-0">
                 <b data-html="true">
-                  {{item.text}}
+                  {{item.name}}
                   <br />
                 </b>
               </p>
