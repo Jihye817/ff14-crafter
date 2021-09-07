@@ -11,24 +11,32 @@
                   class="button"
                   v-bind="attrs"
                   v-on="on"
-                  @click="addToList(item.name, item.icon, item.images, item.cp)"
+                  @click="
+                    addToList(
+                      item.name,
+                      item.icon,
+                      item.images,
+                      item.cp,
+                      item.wait
+                    )
+                  "
                 >
-                  <img :src="item.images" style="height:50px" />
+                  <img :src="item.images" style="height: 50px" />
                 </button>
               </template>
               <p class="mb-0">
                 <b data-html="true">
-                  {{item.name}}
+                  {{ item.name }}
                   <br />
                 </b>
               </p>
-              <p class="mb-0">{{item.tooltip}}</p>
+              <p class="mb-0">{{ item.tooltip }}</p>
             </v-tooltip>
           </v-col>
         </v-row>
         <v-row class="ma-0 pa-5">draggable test</v-row>
         <v-row class="ma-0 pa-5">
-          <v-col class="ma-0 pa-0" cols="5">
+          <v-col class="ma-0 pa-0" cols="6">
             <draggable
               :list="selectedList"
               :disabled="!enabled"
@@ -37,16 +45,16 @@
               :move="checkMove"
               @start="dragging = true"
               @end="dragging = false"
-              style="display:flex; flex-wrap: wrap;"
+              style="display: flex; flex-wrap: wrap"
             >
-              <div
+              <v-col cols="2"
                 class="list-group-item"
                 v-for="element in selectedList"
                 :key="element.name"
                 style="padding: 10px"
               >
                 <button class="button">
-                  <img :src="element.images" style="height:50px" />
+                  <img :src="element.images" style="height: 50px" />
                 </button>
                 <v-btn
                   class="pa-0"
@@ -61,16 +69,28 @@
                 >
                   <v-row align="center" justify="space-around">x</v-row>
                 </v-btn>
-              </div>
+              </v-col>
             </draggable>
           </v-col>
-          <v-col cols="2" align-self="center">
-            <v-btn @click="changeToText()">test</v-btn>
+          <v-col cols="2" align-self="top"  class="ma-0 pa-0">
+            <v-col cols="12" class="ma-0 pa-0">
+              <v-col cols="12" class="ma-0 pa-0">cp : {{ totalCP }}</v-col>
+            </v-col>
+            <v-col cols="12" class="ma-0 pa-0">
+              <v-btn @click="changeToText()">test</v-btn>
+            </v-col>
+
+            <v-col cols="12" class="ma-0 pa-0">
+              <v-btn @click="copyToClipboard()">copy</v-btn>
+            </v-col>
+            <v-col cols="12" class="ma-0 pa-0">
+              <v-btn @click="clearList()">clear</v-btn>
+            </v-col>
           </v-col>
-          <v-col cols="5">
-            <div v-for="elem in selectedText" :key="elem.name">test {{elem.name}}</div>
-            <div>cp : {{totalCP}}</div>
-            <v-btn @click="copyToClipboard()">copy</v-btn>
+          <v-col cols="4" class="ma-0 pa-0">
+            <div v-for="elem in selectedText" :key="elem.name">
+              {{ elem.name }} {{ elem.wait }}
+            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -86,7 +106,7 @@ import alchemist from "../variables/alchemist";
 export default {
   name: "Alchemist",
   components: {
-    draggable
+    draggable,
   },
   data: () => ({
     craftSkillList: alchemist.craftSkillList,
@@ -94,20 +114,23 @@ export default {
     selectedText: [],
     enabled: true,
     dragging: false,
-    totalCP : 0,
+    totalCP: 0,
   }),
   computed: {
     draggingInfo() {
       return this.dragging ? "under drag" : "";
-    }
+    },
   },
   methods: {
-    addToList(name, id, images, cp) {
-      this.selectedList.push({ name, id, images, cp});
-      this.totalCP += cp
+    addToList(name, id, images, cp, wait) {
+      this.selectedList.push({ name, id, images, cp, wait });
+      this.totalCP += cp;
       console.log(images);
     },
-    checkMove: function(e) {
+    clearList() {
+      this.selectedList = [];
+    },
+    checkMove: function (e) {
       window.console.log("Future index: " + e.draggedContext.futureIndex);
     },
     changeToText() {
@@ -141,8 +164,8 @@ export default {
       } else {
         alert("복사 완료");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
