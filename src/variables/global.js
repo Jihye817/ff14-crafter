@@ -7,13 +7,13 @@ const list = [
     testList: [{ num: 1 }, { num: 2 }],
     testList2: list,
     craftJobList: [
-      { text: "first", icon: "icon", image: require("../assets/carpenter.png") },
+      { text: "carpenter", icon: "icon", image: require("../assets/carpenter.png"), page: "alchemist" },
       { text: "two", icon: "icon", image: require("../assets/blacksmith.png") },
       { text: "three", icon: "icon", image: require("../assets/armorer.png") },
       { text: "four", icon: "icon", image: require("../assets/goldsmith.png") },
       { text: "five", icon: "icon", image: require("../assets/leatherworker.png") },
       { text: "six", icon: "icon", image: require("../assets/weaver.png") },
-      { text: "seven", icon: "icon", image: require("../assets/alchemist.png") },
+      { text: "alchemist", icon: "icon", image: require("../assets/alchemist.png"), page: "alchemist" },
       { text: "eight", icon: "icon", image: require("../assets/culinarian.png") }
     ],
     craftSkillList: [

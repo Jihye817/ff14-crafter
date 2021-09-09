@@ -1,10 +1,15 @@
 <template>
   <v-container fluid class="ma-0 pa-0">
     <v-row class="ma-0 pa-0">
-      <v-col cols="12">
-        <v-row class="pt-10 pl-10 pb-5">Sample List</v-row>
-        <v-row class="ma-0 pa-0 pl-5">
-          <v-col v-for="(item, i) in craftSkillList" :key="i">
+      <v-col cols="12" class="ma-0 pa-0">
+        <v-row class="ma-0 pt-10 pl-10 pb-5">기술 목록</v-row>
+        <v-row class="ma-0 pa-0 pl-10 pr-10">
+          <v-col
+            cols="1"
+            class="ma-0 pa-0"
+            v-for="(item, i) in craftSkillList"
+            :key="i"
+          >
             <v-tooltip right min-width="100">
               <template v-slot:activator="{ on, attrs }">
                 <button
@@ -34,9 +39,9 @@
             </v-tooltip>
           </v-col>
         </v-row>
-        <v-row class="ma-0 pa-5">draggable test</v-row>
-        <v-row class="ma-0 pa-5">
-          <v-col class="ma-0 pa-0" cols="6">
+        <v-row class="ma-0 pt-10 pl-10 pb-5 pa-5">매크로 제작</v-row>
+        <v-row class="ma-0 pl-10 pb-10" justify="space-around">
+          <v-col class="ma-0 pa-5" cols="5" id="macro_icons_box">
             <draggable
               :list="selectedList"
               :disabled="!enabled"
@@ -47,11 +52,12 @@
               @end="dragging = false"
               style="display: flex; flex-wrap: wrap"
             >
-              <v-col cols="2"
+              <v-col
+                cols="2"
                 class="list-group-item"
                 v-for="element in selectedList"
                 :key="element.name"
-                style="padding: 10px"
+                style="padding: 0px"
               >
                 <button class="button">
                   <img :src="element.images" style="height: 50px" />
@@ -63,8 +69,6 @@
                   width="20"
                   height="20"
                   min-width="20"
-                  v-bind="attrs"
-                  v-on="on"
                   @click="remove(element)"
                 >
                   <v-row align="center" justify="space-around">x</v-row>
@@ -72,22 +76,18 @@
               </v-col>
             </draggable>
           </v-col>
-          <v-col cols="2" align-self="top"  class="ma-0 pa-0">
-            <v-col cols="12" class="ma-0 pa-0">
+          <v-col cols="1" class="ma-0 pa-0" id="btn_wrap">
+            <v-col cols="12" class="ma-0 pa-0 pb-10">
               <v-col cols="12" class="ma-0 pa-0">cp : {{ totalCP }}</v-col>
             </v-col>
-            <v-col cols="12" class="ma-0 pa-0">
-              <v-btn @click="changeToText()">test</v-btn>
-            </v-col>
-
-            <v-col cols="12" class="ma-0 pa-0">
-              <v-btn @click="copyToClipboard()">copy</v-btn>
+            <v-col cols="12" class="ma-0 pa-0 pb-10">
+              <v-btn @click="copyToClipboard()">매크로 복사</v-btn>
             </v-col>
             <v-col cols="12" class="ma-0 pa-0">
-              <v-btn @click="clearList()">clear</v-btn>
+              <v-btn @click="clearList()">지우기</v-btn>
             </v-col>
           </v-col>
-          <v-col cols="4" class="ma-0 pa-0">
+          <v-col cols="5" class="ma-0 pa-0">
             <div v-for="elem in selectedText" :key="elem.name">
               {{ elem.name }} {{ elem.wait }}
             </div>
@@ -100,7 +100,6 @@
 
 <script>
 import draggable from "vuedraggable";
-import shared from "../variables/global";
 import alchemist from "../variables/alchemist";
 
 export default {
@@ -126,26 +125,27 @@ export default {
       this.selectedList.push({ name, id, images, cp, wait });
       this.totalCP += cp;
       console.log(images);
+      this.selectedText = this.selectedList;
     },
     clearList() {
       this.selectedList = [];
+      this.selectedText = "";
     },
     checkMove: function (e) {
       window.console.log("Future index: " + e.draggedContext.futureIndex);
     },
-    changeToText() {
-      this.selectedText = this.selectedList;
-    },
     remove(text) {
       console.log(this.selectedList.indexOf(text));
-      this.totalCP -= this.selectedList.indexOf(text).cp;
+      var num = this.selectedList.indexOf(text);
+      console.log(this.selectedList[num]);
+      this.totalCP -= this.selectedList[num].cp;
       this.selectedList.splice(this.selectedList.indexOf(text), 1);
     },
     copyToClipboard() {
       var copyText = [];
       var i;
       for (i = 0; i < this.selectedText.length; i++) {
-        copyText.push(this.selectedText[i].name + " time");
+        copyText.push("/ac " + this.selectedText[i].name + " " + this.selectedText[i].wait);
       }
       //복사 위해 textarea 생성
       const element = document.createElement("textarea");
@@ -172,6 +172,10 @@ export default {
 .buttons {
   margin-top: 35px;
 }
+.list-group-item {
+  display: flex;
+  justify-content: center;
+}
 .ghost {
   opacity: 0.5;
   background: #c8ebfb;
@@ -181,5 +185,12 @@ export default {
   width: 50px;
   background-repeat: no-repeat;
   background-size: cover;
+}
+#btn_wrap {
+  text-align: center;
+}
+#macro_icons_box {
+  border: grey 2px solid;
+  border-radius: 1vh;
 }
 </style>
